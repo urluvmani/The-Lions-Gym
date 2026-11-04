@@ -1,7 +1,11 @@
+'use client'
+
 import Link from 'next/link'
-import { Dumbbell, Users, Trophy, MapPin, Phone, Mail, Clock, CheckCircle } from 'lucide-react'
+import { useState } from 'react'
+import { Dumbbell, Users, Trophy, MapPin, Phone, Mail, Clock, CheckCircle, Menu, X } from 'lucide-react'
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white">
       {/* Navigation */}
@@ -12,46 +16,73 @@ export default function Home() {
               <Dumbbell className="h-8 w-8 text-[#f59e0b]" />
               <span className="text-2xl font-bold">THE LIONS</span>
             </div>
-            <div className="hidden md:flex space-x-8">
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-8 items-center">
               <a href="#about" className="hover:text-[#f59e0b] transition-colors">About</a>
-              <a href="#membership" className="hover:text-[#f59e0b] transition-colors">Membership</a>
               <a href="#trainers" className="hover:text-[#f59e0b] transition-colors">Trainers</a>
               <a href="#contact" className="hover:text-[#f59e0b] transition-colors">Contact</a>
+              <Link
+                href="/admin/login"
+                className="bg-[#f59e0b] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#d97706] transition-colors"
+              >
+                Admin Portal
+              </Link>
             </div>
-            <Link
-              href="/admin/login"
-              className="bg-[#f59e0b] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#d97706] transition-colors"
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-white p-2"
             >
-              Admin Portal
-            </Link>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden bg-[#171717] border-t border-[#333] py-4">
+              <div className="flex flex-col space-y-4 px-4">
+                <a href="#about" className="hover:text-[#f59e0b] transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
+                <a href="#trainers" className="hover:text-[#f59e0b] transition-colors" onClick={() => setIsMenuOpen(false)}>Trainers</a>
+                <a href="#contact" className="hover:text-[#f59e0b] transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
+                <Link
+                  href="/admin/login"
+                  className="bg-[#f59e0b] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#d97706] transition-colors text-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Admin Portal
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f0f] via-[#171717] to-[#0f0f0f]"></div>
-        <div className="absolute top-20 right-20 w-72 h-72 bg-[#f59e0b]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#dc2626]/10 rounded-full blur-3xl"></div>
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-[90vh] flex items-center">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("/gym-hero.jpg")' }}></div>
+        
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/0 via-black/75 to-black/75"></div>
+        
+        {/* Orange accent glow */}
+        <div className="absolute top-20 right-20 w-72 h-72 bg-[#f59e0b]/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#f59e0b]/15 rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#f59e0b] to-[#dc2626] bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-[#f59e0b] to-[#dc2626] bg-clip-text text-transparent drop-shadow-2xl">
               UNLEASH YOUR INNER BEAST
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto font-medium drop-shadow-lg">
               Transform your body, elevate your mind, and become the strongest version of yourself at The Lions Gym.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="admin/members"
-                className="bg-[#f59e0b] text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#d97706] transition-all transform hover:scale-105"
-              >
-                Join Now
-              </a>
-              <a
                 href="#about"
-                className="border-2 border-[#f59e0b] text-[#f59e0b] px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#f59e0b] hover:text-black transition-all"
+                className="border-2 border-[#f59e0b] text-[#f59e0b] px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#f59e0b] hover:text-black transition-all shadow-lg"
               >
                 Learn More
               </a>
@@ -141,7 +172,7 @@ export default function Home() {
                 <MapPin className="h-6 w-6 text-[#f59e0b] mt-1" />
                 <div>
                   <h3 className="font-bold mb-1">Location</h3>
-                  <p className="text-gray-400">123 Fitness Street, Gym City, GC 12345</p>
+                  <p className="text-gray-400">Street 15, Nisar Colony, Faisalabad, Pakistan</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -168,9 +199,17 @@ export default function Home() {
               </div>
             </div>
             <div className="bg-[#171717] p-6 rounded-xl border border-[#333]">
-              <div className="w-full h-64 bg-[#0f0f0f] rounded-lg flex items-center justify-center">
-                <MapPin className="h-12 w-12 text-[#f59e0b]" />
-                <span className="ml-2 text-gray-400">Interactive Map</span>
+              <div className="w-full h-64 rounded-lg overflow-hidden">
+                <iframe
+                  src="https://maps.google.com/maps?q=Street+15+Nisar+Colony+Faisalabad+Pakistan&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="grayscale hover:grayscale-0 transition-all duration-300"
+                ></iframe>
               </div>
             </div>
           </div>
@@ -184,7 +223,7 @@ export default function Home() {
             <Dumbbell className="h-6 w-6 text-[#f59e0b]" />
             <span className="text-xl font-bold">THE LIONS</span>
           </div>
-          <p className="text-gray-400">&copy; 2024 The Lions Gym. All rights reserved.</p>
+          <p className="text-gray-400">&copy; 2026 The Lions Gym. Made with ❤️ by Abdul Rehman.</p>
         </div>
       </footer>
     </div>
