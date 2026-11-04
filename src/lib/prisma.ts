@@ -1,9 +1,3 @@
-import { PrismaClient } from '@prisma/client'
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+// This file is no longer used - we use direct MongoDB connection instead
+// Keeping it for compatibility in case it's imported somewhere
+export const prisma = null
