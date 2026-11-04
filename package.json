@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "prisma generate && prisma skills sync || exit 0"
+    "lint": "eslint"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.3",
