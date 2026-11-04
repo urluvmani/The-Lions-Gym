@@ -6,10 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate && prisma skills sync || exit 0"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.11.3",
+    "@prisma/client": "^7.10.1",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.68.0",
+    "mongodb": "^6.22.0",
     "next": "16.4.5",
+    "next-auth": "^4.24.15",
+    "prisma": "^8.0.0-rc.30",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

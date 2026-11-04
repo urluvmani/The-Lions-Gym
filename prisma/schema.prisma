@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+model Member {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  code        String   @unique
+  phone       String
+  address     String
+  dateJoined  DateTime
+  planType    String   // "1 Month", "3 Months", "6 Months", "1 Year"
+  feePaid     Float
+  expiryDate  DateTime
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  attendance  Attendance[]
+}
+
+model Attendance {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  memberId  String   @db.ObjectId
+  member    Member   @relation(fields: [memberId], references: [id])
+  date      DateTime @default(now())
+  checkIn   DateTime @default(now())
+  createdAt DateTime @default(now())
+}
+
+model MembershipPlan {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   // "1 Month", "3 Months", "6 Months", "1 Year"
+  duration    Int      // in months
+  price       Float
+  features    String[]
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
