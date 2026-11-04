@@ -79,6 +79,12 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8 py-4">
             <Link
+              href="/"
+              className="text-gray-400 hover:text-white transition-colors pb-2"
+            >
+              Home
+            </Link>
+            <Link
               href="/admin/dashboard"
               className="text-[#f59e0b] font-semibold border-b-2 border-[#f59e0b] pb-2"
             >

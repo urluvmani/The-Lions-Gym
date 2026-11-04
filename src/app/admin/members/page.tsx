@@ -172,8 +172,6 @@ export default function MembersPage() {
     const now = new Date()
     const daysLeft = differenceInDays(expiry, now)
 
-    console.log('Expiry date:', expiry, 'Current date:', now, 'Days left:', daysLeft)
-
     if (daysLeft < 0) {
       return { label: 'Expired', color: 'bg-red-500/10 text-red-500' }
     } else if (daysLeft <= 7) {
@@ -227,6 +225,12 @@ export default function MembersPage() {
       <nav className="bg-[#171717] border-b border-[#333]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8 py-4">
+            <Link
+              href="/"
+              className="text-gray-400 hover:text-white transition-colors pb-2"
+            >
+              Home
+            </Link>
             <Link
               href="/admin/dashboard"
               className="text-gray-400 hover:text-white transition-colors pb-2"
